@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Daniel Colantonio — Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0c0f;
+    --bg-alt:#101318;
+    --card:#14171d;
+    --border:#22262e;
+    --text:#eef1f4;
+    --muted:#9aa3ad;
+    --accent:#4ade80;
+    --accent-dim:#1f3d2b;
+    --accent2:#60a5fa;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', -apple-system, sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{ font-family:'Sora', sans-serif; letter-spacing:-0.02em; }
+  a{ color:inherit; text-decoration:none; }
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 28px; }
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,12,15,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo{ font-weight:700; font-size:16px; }
+  .logo span{ color:var(--accent); }
+  nav ul{ list-style:none; display:flex; gap:28px; }
+  nav ul a{ font-size:14px; color:var(--muted); transition:color .15s; }
+  nav ul a:hover{ color:var(--text); }
+  .nav-cta{
+    border:1px solid var(--border); padding:8px 16px; border-radius:8px;
+    font-size:13px; color:var(--text) !important;
+  }
+  .nav-cta:hover{ border-color:var(--accent); color:var(--accent) !important; }
+
+  /* HERO */
+  header.hero{ padding:110px 0 90px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header.hero::before{
+    content:''; position:absolute; top:-200px; right:-150px; width:500px; height:500px;
+    background:radial-gradient(circle, rgba(74,222,128,0.10) 0%, rgba(74,222,128,0) 70%);
+    pointer-events:none;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--accent); font-weight:500;
+    border:1px solid var(--accent-dim); background:rgba(74,222,128,0.06);
+    padding:6px 12px; border-radius:20px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); }
+  .hero h1{ font-size:46px; font-weight:800; max-width:780px; margin-bottom:20px; }
+  .hero h1 .accent{ color:var(--accent); }
+  .hero p.lead{ font-size:18px; color:var(--muted); max-width:600px; margin-bottom:34px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block; padding:12px 22px; border-radius:8px; font-size:14px; font-weight:600;
+    transition:all .15s;
+  }
+  .btn-primary{ background:var(--accent); color:#08130d; }
+  .btn-primary:hover{ opacity:.88; }
+  .btn-secondary{ border:1px solid var(--border); color:var(--text); }
+  .btn-secondary:hover{ border-color:var(--muted); }
+
+  /* SECTION HEADINGS */
+  .section{ padding:90px 0; border-bottom:1px solid var(--border); }
+  .section-tag{ font-size:13px; color:var(--accent); font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px; }
+  .section h2{ font-size:32px; margin-bottom:18px; }
+  .section > .wrap > p.section-lead{ color:var(--muted); font-size:16px; max-width:640px; margin-bottom:0; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:1fr; gap:20px; margin-top:36px; }
+  .about-text p{ color:#c4cad2; font-size:16px; margin-bottom:18px; max-width:720px; }
+  .about-text strong{ color:var(--text); }
+  .timeline{ margin-top:38px; display:grid; gap:0; border-left:2px solid var(--border); padding-left:24px; }
+  .t-item{ position:relative; padding-bottom:28px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:''; position:absolute; left:-30px; top:4px; width:10px; height:10px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 0 4px var(--accent-dim);
+  }
+  .t-role{ font-weight:600; font-size:15px; color:var(--text); }
+  .t-meta{ font-size:13px; color:var(--muted); margin-bottom:6px; }
+  .t-desc{ font-size:14.5px; color:#a6adb6; max-width:600px; }
+
+  /* PROJECTS */
+  .project-card{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:36px; margin-bottom:26px;
+  }
+  .project-card:last-child{ margin-bottom:0; }
+  .project-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:6px; }
+  .project-title{ font-size:22px; font-weight:700; }
+  .project-tagline{ color:var(--muted); font-size:14.5px; margin-bottom:18px; }
+  .project-desc{ color:#c4cad2; font-size:15px; margin-bottom:24px; max-width:680px; }
+  .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; margin-bottom:24px; }
+  .feature-item{ font-size:14px; color:#c4cad2; display:flex; gap:10px; align-items:flex-start; }
+  .feature-item::before{ content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-size:12.5px; padding:5px 11px; border-radius:6px; border:1px solid var(--border);
+    color:var(--muted); background:var(--bg-alt);
+  }
+  .tag.crm{ border-color:var(--accent-dim); color:var(--accent); }
+  .tag.law{ border-color:#1e3350; color:var(--accent2); }
+
+  /* CONTACT */
+  #contact{ border-bottom:none; }
+  .contact-box{
+    background:var(--card); border:1px solid var(--border); border-radius:14px;
+    padding:48px; text-align:center; margin-top:30px;
+  }
+  .contact-box h3{ font-size:24px; margin-bottom:12px; }
+  .contact-box p{ color:var(--muted); margin-bottom:26px; }
+  footer{ padding:30px 0; text-align:center; color:var(--muted); font-size:13px; }
+
+  /* MOCKUPS */
+  .mockup{
+    border-radius:10px; overflow:hidden; border:1px solid var(--border);
+    margin-bottom:22px; background:#0d1013;
+  }
+  .mockup-bar{
+    height:32px; display:flex; align-items:center; gap:6px; padding:0 12px;
+    background:#15181d; border-bottom:1px solid var(--border);
+  }
+  .mockup-dot{ width:8px; height:8px; border-radius:50%; }
+  .mockup-url{
+    margin-left:8px; font-size:10.5px; color:var(--muted); background:#0d1013;
+    padding:3px 10px; border-radius:5px; border:1px solid var(--border);
+  }
+  .mockup-body{ padding:16px; overflow-x:auto; }
+  .mockup-inner{ min-width:620px; }
+  .m-stats{ display:flex; gap:10px; margin-bottom:12px; }
+  .m-stat{
+    flex:1; background:var(--bg-alt); border:1px solid var(--border); border-radius:8px;
+    padding:10px 12px;
+  }
+  .m-stat-label{ font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+  .m-stat-value{ font-size:16px; font-weight:700; color:var(--text); font-family:'Sora',sans-serif; }
+  .m-stat-value.g{ color:var(--accent); }
+  .m-stat-value.b{ color:var(--accent2); }
+  .m-layout{ display:flex; gap:10px; }
+  .m-side{ width:130px; display:flex; flex-direction:column; gap:6px; flex-shrink:0; }
+  .m-house{
+    background:var(--bg-alt); border:1px solid var(--border); border-radius:6px;
+    padding:7px 9px; font-size:10px; color:#c4cad2;
+  }
+  .m-house-bar{ height:3px; border-radius:2px; margin-top:5px; }
+  .m-table{ flex:1; background:var(--bg-alt); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  .m-row{
+    display:grid; gap:8px; padding:8px 12px; font-size:10.5px; color:#c4cad2;
+    border-bottom:1px solid var(--border); align-items:center;
+  }
+  .m-row.crm{ grid-template-columns:1.3fr .8fr .8fr .7fr; }
+  .m-row.law{ grid-template-columns:1.1fr 1fr .9fr .9fr .7fr; }
+  .m-row.head{ font-size:9px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); background:#181c22; }
+  .m-row:last-child{ border-bottom:none; }
+  .m-pill{
+    display:inline-block; font-size:9px; padding:2px 8px; border-radius:20px; font-weight:600;
+  }
+  .m-pill.active{ background:rgba(74,222,128,.14); color:var(--accent); }
+  .m-pill.disc{ background:rgba(154,163,173,.14); color:var(--muted); }
+  .m-pill.otr{ background:rgba(96,165,250,.14); color:var(--accent2); }
+  .m-pill.tv{ background:rgba(250,204,21,.14); color:#facc15; }
+  .m-pill.pr{ background:rgba(74,222,128,.14); color:var(--accent); }
+  .m-name{ color:var(--text); font-weight:600; }
+
+  @media(max-width:640px){
+    .hero h1{ font-size:32px; }
+    .feature-grid{ grid-template-columns:1fr; }
+    nav ul{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Daniel <span>Colantonio</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:danieljcolantonio@gmail.com">Get in touch</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Available for new projects</div>
+    <h1>I build software that runs real <span class="accent">operations</span> — not just demos.</h1>
+    <p class="lead">Former integrations analyst turned operator turned builder. I design and ship full working software — database to deployment — for people who need tools that actually fit how they work.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn btn-secondary" href="#about">My background</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-tag">About</div>
+    <h2>From integrations to operations to AI-built software</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I started as a <strong>Partner Integration Analyst at Cox Automotive</strong>, onboarding banks and building the API connections between lenders, dealers, and internal systems. It's where I learned how systems talk to each other, and how big businesses run.</p>
+        <p>I left to build something different: <strong>transitional living homes for people in recovery from addiction.</strong> Running it meant owning every piece myself — intake, case management, billing, compliance — and living with how much of it ran on spreadsheets, paper files, and manual processes that broke under real pressure.</p>
+        <p>So I started building my own tools. That grew into helping other small operators do the same — people who didn't want to overpay an agency, or didn't know where to start.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-role">Business &amp; Technology Consulting</div>
+        <div class="t-meta">Present</div>
+        <div class="t-desc">Building practical software for small businesses and operators — from schema to deployment.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-role">Founder, Transitional Living Homes</div>
+        <div class="t-meta">Sober living / recovery housing operator</div>
+        <div class="t-desc">Built and ran multi-house transitional living operations for people in recovery, managing intake, case work, billing, and compliance end-to-end.</div>
+      </div>
+      <div class="t-item">
+        <div class="t-role">Partner Integration Analyst</div>
+        <div class="t-meta">Cox Automotive</div>
+        <div class="t-desc">Onboarded banks onto Cox's software platform and built the API integrations connecting lenders, dealers, and internal systems.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-tag">Selected Work</div>
+    <h2>Two products, built for how people actually work</h2>
+    <p class="section-lead">Live tools built for operators who needed something better than a spreadsheet.</p>
+
+    <div style="margin-top:40px;">
+      <div class="project-card">
+        <div class="project-head">
+          <div>
+            <div class="project-title">Safe Haven CRM</div>
+          </div>
+        </div>
+        <div class="project-tagline">A full case-management platform for multi-house sober living operations</div>
+
+        <div class="mockup">
+          <div class="mockup-bar">
+            <span class="mockup-dot" style="background:#ff5f57"></span>
+            <span class="mockup-dot" style="background:#febc2e"></span>
+            <span class="mockup-dot" style="background:#28c840"></span>
+            <span class="mockup-url">app.safehavencrm.com/dashboard</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-inner">
+              <div class="m-stats">
+                <div class="m-stat"><div class="m-stat-label">Active Residents</div><div class="m-stat-value">86</div></div>
+                <div class="m-stat"><div class="m-stat-label">Occupancy</div><div class="m-stat-value g">92%</div></div>
+                <div class="m-stat"><div class="m-stat-label">Balance Due</div><div class="m-stat-value b">$4,120</div></div>
+                <div class="m-stat"><div class="m-stat-label">Open Tasks</div><div class="m-stat-value">7</div></div>
+              </div>
+              <div class="m-layout">
+                <div class="m-side">
+                  <div class="m-house">Roosevelt House<div class="m-house-bar" style="background:#7ec87e;width:88%"></div></div>
+                  <div class="m-house">Westend House<div class="m-house-bar" style="background:#7aa8e8;width:75%"></div></div>
+                  <div class="m-house">Brookside House<div c

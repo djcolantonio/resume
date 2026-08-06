@@ -155,7 +155,27 @@
     border-color:var(--accent-dim);
   }
   .project-card:last-child{ margin-bottom:0; }
-  .mockup-img{ width:100%; display:block; }
+  .mockup-img{ width:100%; display:block; cursor:zoom-in; transition:filter .2s ease; }
+  .mockup-img:hover{ filter:brightness(1.06); }
+
+  /* LIGHTBOX */
+  .lightbox{
+    display:none; position:fixed; inset:0; z-index:200;
+    background:rgba(5,6,8,0.92); backdrop-filter:blur(4px);
+    align-items:center; justify-content:center; padding:40px;
+    cursor:zoom-out;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{
+    max-width:100%; max-height:100%; border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    border:1px solid var(--border);
+  }
+  .lightbox-close{
+    position:absolute; top:24px; right:32px; font-size:32px; color:var(--text);
+    background:none; border:none; cursor:pointer; line-height:1; opacity:.8;
+  }
+  .lightbox-close:hover{ opacity:1; }
   .project-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:6px; }
   .project-title{ font-size:22px; font-weight:700; }
   .project-tagline{ color:var(--muted); font-size:14.5px; margin-bottom:18px; }
@@ -367,7 +387,7 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">app.safehavencrm.com/dashboard</span>
           </div>
-          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/safehaven-dashboard.png" alt="SafeHaven CRM dashboard showing resident accounts, occupancy, and accounts receivable" loading="lazy" />
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/safehaven-dashboard.png" alt="SafeHaven CRM dashboard showing resident accounts, occupancy, and accounts receivable" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
         </div>
 
         <p class="project-desc">Built for a sober living operator who was running everything through spreadsheets and sticky notes. Leads come in straight from the website, resident payments and notes are tracked automatically, bookkeeping runs through the same system, and an AI agent handles the email follow-up.</p>
@@ -394,7 +414,7 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">casedocket.app/cases</span>
           </div>
-          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/casedocket-home.png" alt="Case Docket dashboard showing this week's court dates and deadlines" loading="lazy" />
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/casedocket-home.png" alt="Case Docket dashboard showing this week's court dates and deadlines" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
         </div>
 
         <p class="project-desc">Built for a traffic and criminal defense attorney who was running every case out of one overloaded spreadsheet. Cases get tracked from intake to close, court date reminders go out by email every day, payments and balances are tracked per client, and an AI summary built on Claude gives a quick read on where every case stands.</p>
@@ -421,7 +441,7 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">saltyskins.app/dashboard</span>
           </div>
-          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/saltyskins-overview.png" alt="Salty Skins retreat operations dashboard showing arrivals, collected revenue, and tasks" loading="lazy" />
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/saltyskins-overview.png" alt="Salty Skins retreat operations dashboard showing arrivals, collected revenue, and tasks" loading="lazy" onclick="openLightbox(this.src, this.alt)" />
         </div>
 
         <p class="project-desc">Built for a yoga retreat business that needed one place to track guests across retreats. Bookkeeping and finances live in the same dashboard as bookings and arrivals, so nothing gets tracked twice.</p>
@@ -455,7 +475,31 @@
   © 2026 Daniel Colantonio
 </footer>
 
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+</div>
+
 <script>
+  function openLightbox(src, alt) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    img.src = src;
+    img.alt = alt || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (e) e.stopPropagation();
+    const lb = document.getElementById('lightbox');
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+  document.getElementById('lightbox-img').addEventListener('click', (e) => e.stopPropagation());
+
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

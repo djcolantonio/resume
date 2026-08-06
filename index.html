@@ -112,16 +112,35 @@
   .skills-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:36px; }
   .skill-card{
     background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .skill-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(0,0,0,0.3);
+    border-color:var(--accent-dim);
   }
   .skill-card h3{ font-size:15px; margin-bottom:14px; color:var(--text); }
   .skill-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-tags .tag{ transition:transform .15s ease, color .15s ease, border-color .15s ease; }
+  .skill-tags .tag:hover{ transform:translateY(-2px); color:var(--accent); border-color:var(--accent-dim); }
+
+  /* SCROLL REVEAL */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
 
   /* PROJECTS */
   .project-card{
     background:var(--card); border:1px solid var(--border); border-radius:14px;
     padding:36px; margin-bottom:26px;
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .project-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 16px 36px rgba(0,0,0,0.35);
+    border-color:var(--accent-dim);
   }
   .project-card:last-child{ margin-bottom:0; }
+  .mockup-img{ width:100%; display:block; }
   .project-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:6px; }
   .project-title{ font-size:22px; font-weight:700; }
   .project-tagline{ color:var(--muted); font-size:14.5px; margin-bottom:18px; }
@@ -247,17 +266,17 @@
       </div>
     </div>
     <div class="timeline">
-      <div class="t-item">
+      <div class="t-item reveal">
         <div class="t-role">Business &amp; Technology Consulting</div>
         <div class="t-meta">Present</div>
         <div class="t-desc">Custom CRMs, AI implementation, automated workflows, and integrations for small businesses and operators — from schema to deployment.</div>
       </div>
-      <div class="t-item">
+      <div class="t-item reveal">
         <div class="t-role">Founder &amp; Operator — Safe Haven Sober Living</div>
         <div class="t-meta">Long Island, NY · August 2019 – Present</div>
         <div class="t-desc">Founded and scaled a multi-property residential operation under contract with Nassau County Social Services. Built SafeHavenCRM (React/Node.js) to manage tenant intake, rent tracking, drug testing records, and case worker communication. Maintained 90%+ occupancy while managing budgets, financial reporting, accounts receivable, and vendor contracts.</div>
       </div>
-      <div class="t-item">
+      <div class="t-item reveal">
         <div class="t-role">Technical Business Analyst (Partner Integration) — Dealertrack (Cox Automotive)</div>
         <div class="t-meta">North Hills, NY · October 2018 – December 2022</div>
         <div class="t-desc">Led end-to-end API integrations for Dealertrack's digital retailing platform, serving as primary technical point of contact from pre-sales discovery through production deployment. Diagnosed partner connectivity issues via Splunk and Postman, managed delivery through Salesforce and Rally (Agile), and provided on-call production incident support.</div>
@@ -277,7 +296,7 @@
     <h2>Enterprise integration experience, applied to AI</h2>
     <p class="section-lead">A mix of four years of enterprise API/partner integration work and hands-on experience shipping AI-powered tools end to end.</p>
     <div class="skills-grid">
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <h3>API &amp; Systems Integration</h3>
         <div class="skill-tags">
           <span class="tag">API Integration &amp; Partner Onboarding</span>
@@ -288,7 +307,7 @@
           <span class="tag">SQL / Data Querying</span>
         </div>
       </div>
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <h3>AI &amp; Automation</h3>
         <div class="skill-tags">
           <span class="tag">Claude / LLM API Integration</span>
@@ -298,7 +317,7 @@
           <span class="tag">Twilio (Voice &amp; SMS)</span>
         </div>
       </div>
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <h3>Platforms &amp; Development</h3>
         <div class="skill-tags">
           <span class="tag">React</span>
@@ -308,7 +327,7 @@
           <span class="tag">Salesforce CRM</span>
         </div>
       </div>
-      <div class="skill-card">
+      <div class="skill-card reveal">
         <h3>Operations &amp; Delivery</h3>
         <div class="skill-tags">
           <span class="tag">Agile / Rally</span>
@@ -329,13 +348,13 @@
     <p class="section-lead">Live tools built for operators who needed something better than a spreadsheet.</p>
 
     <div style="margin-top:40px;">
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-head">
           <div>
             <div class="project-title">Safe Haven CRM</div>
           </div>
         </div>
-        <div class="project-tagline">A full case-management platform for multi-house sober living operations</div>
+        <div class="project-tagline">Sober Living / Healthcare</div>
 
         <div class="mockup">
           <div class="mockup-bar">
@@ -344,56 +363,25 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">app.safehavencrm.com/dashboard</span>
           </div>
-          <div class="mockup-body">
-            <div class="mockup-inner">
-              <div class="m-stats">
-                <div class="m-stat"><div class="m-stat-label">Active Residents</div><div class="m-stat-value">86</div></div>
-                <div class="m-stat"><div class="m-stat-label">Occupancy</div><div class="m-stat-value g">92%</div></div>
-                <div class="m-stat"><div class="m-stat-label">Balance Due</div><div class="m-stat-value b">$4,120</div></div>
-                <div class="m-stat"><div class="m-stat-label">Open Tasks</div><div class="m-stat-value">7</div></div>
-              </div>
-              <div class="m-layout">
-                <div class="m-side">
-                  <div class="m-house">Roosevelt House<div class="m-house-bar" style="background:#7ec87e;width:88%"></div></div>
-                  <div class="m-house">Westend House<div class="m-house-bar" style="background:#7aa8e8;width:75%"></div></div>
-                  <div class="m-house">Brookside House<div class="m-house-bar" style="background:#e8c880;width:96%"></div></div>
-                  <div class="m-house">Southside House<div class="m-house-bar" style="background:#e88a7a;width:60%"></div></div>
-                </div>
-                <div class="m-table">
-                  <div class="m-row crm head"><div>Resident</div><div>House</div><div>Status</div><div>Balance</div></div>
-                  <div class="m-row crm"><div class="m-name">J. Carter</div><div>Roosevelt</div><div><span class="m-pill active">Active</span></div><div>$0</div></div>
-                  <div class="m-row crm"><div class="m-name">A. Reyes</div><div>Westend</div><div><span class="m-pill active">Active</span></div><div>$225</div></div>
-                  <div class="m-row crm"><div class="m-name">T. Brooks</div><div>Brookside</div><div><span class="m-pill active">Active</span></div><div>$0</div></div>
-                  <div class="m-row crm"><div class="m-name">M. Diaz</div><div>Southside</div><div><span class="m-pill disc">Discharged</span></div><div>$0</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/safehaven-dashboard.png" alt="SafeHaven CRM dashboard showing resident accounts, occupancy, and accounts receivable" loading="lazy" />
         </div>
 
-        <p class="project-desc">Runs day-to-day operations for a multi-house sober living organization, intake through discharge — resident tracking, drug testing logs, billing across payer types, and a full audit trail, backed by a live database.</p>
-        <div class="feature-grid">
-          <div class="feature-item">Multi-house resident tracking, real-time occupancy</div>
-          <div class="feature-item">Intake, discharge, readmit &amp; transfer workflows</div>
-          <div class="feature-item">Drug testing logs per resident</div>
-          <div class="feature-item">Billing &amp; AR across self-pay, DSS, insurance</div>
-          <div class="feature-item">Digital agreements &amp; discharge docs</div>
-          <div class="feature-item">Full audit trail &amp; secure login</div>
-        </div>
+        <p class="project-desc">Built for a sober living operator who was running everything through spreadsheets and sticky notes. Leads come in straight from the website, resident payments and notes are tracked automatically, bookkeeping runs through the same system, and an AI agent handles the email follow-up.</p>
         <div class="tag-row">
-          <span class="tag crm">React</span>
-          <span class="tag crm">Vite</span>
-          <span class="tag crm">Supabase (Postgres + Auth)</span>
+          <span class="tag crm">CRM</span>
+          <span class="tag crm">Lead Capture</span>
+          <span class="tag crm">Bookkeeping</span>
+          <span class="tag crm">AI Email Agent</span>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-head">
           <div>
             <div class="project-title">Case Docket</div>
           </div>
         </div>
-        <div class="project-tagline">A case-tracking dashboard built for a solo traffic-law practice</div>
+        <div class="project-tagline">Legal / Law Office</div>
 
         <div class="mockup">
           <div class="mockup-bar">
@@ -402,48 +390,25 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">casedocket.app/cases</span>
           </div>
-          <div class="mockup-body">
-            <div class="mockup-inner">
-              <div class="m-stats">
-                <div class="m-stat"><div class="m-stat-label">Open Cases</div><div class="m-stat-value">34</div></div>
-                <div class="m-stat"><div class="m-stat-label">Court This Week</div><div class="m-stat-value g">5</div></div>
-                <div class="m-stat"><div class="m-stat-label">Outstanding</div><div class="m-stat-value b">$2,860</div></div>
-              </div>
-              <div class="m-table">
-                <div class="m-row law head"><div>Client</div><div>Category</div><div>Court</div><div>Court Date</div><div>Balance</div></div>
-                <div class="m-row law"><div class="m-name">R. Malone</div><div><span class="m-pill pr">Private Retained</span></div><div>Nassau Dist.</div><div>07/14</div><div>$450</div></div>
-                <div class="m-row law"><div class="m-name">K. Singh</div><div><span class="m-pill otr">Off The Record</span></div><div>Suffolk Dist.</div><div>07/16</div><div>—</div></div>
-                <div class="m-row law"><div class="m-name">D. Ferro</div><div><span class="m-pill tv">Ticket Vanish</span></div><div>Nassau Dist.</div><div>07/21</div><div>—</div></div>
-                <div class="m-row law"><div class="m-name">L. Osei</div><div><span class="m-pill pr">Private Retained</span></div><div>Queens Dist.</div><div>07/28</div><div>$0</div></div>
-              </div>
-            </div>
-          </div>
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/casedocket-home.png" alt="Case Docket dashboard showing this week's court dates and deadlines" loading="lazy" />
         </div>
 
-        <p class="project-desc">Replaces paper case files with one shared dashboard for a solo law practice. Tracks cases by category, court, and county, auto-calculates balances on Private Retained cases, and emails a reminder before any court date is missed.</p>
-        <div class="feature-grid">
-          <div class="feature-item">Case tracking by category, court &amp; county</div>
-          <div class="feature-item">Automatic balance tracking on fees &amp; payments</div>
-          <div class="feature-item">Secure single-firm login</div>
-          <div class="feature-item">Automated daily court-date email reminders</div>
-          <div class="feature-item">Live, deployed with scheduled cron jobs</div>
-        </div>
+        <p class="project-desc">Built for a traffic and criminal defense attorney who was running every case out of one overloaded spreadsheet. Cases get tracked from intake to close, court date reminders go out by email every day, payments and balances are tracked per client, and an AI summary — built on Claude — gives a quick read on where every case stands.</p>
         <div class="tag-row">
-          <span class="tag law">React</span>
-          <span class="tag law">Vite</span>
-          <span class="tag law">Supabase</span>
-          <span class="tag law">Vercel Cron</span>
-          <span class="tag law">Resend</span>
+          <span class="tag law">Case Management</span>
+          <span class="tag law">Court Reminders</span>
+          <span class="tag law">AI Case Summaries</span>
+          <span class="tag law">Payments</span>
         </div>
       </div>
 
-      <div class="project-card">
+      <div class="project-card reveal">
         <div class="project-head">
           <div>
             <div class="project-title">Salty Skins CRM</div>
           </div>
         </div>
-        <div class="project-tagline">A guest &amp; operations CRM for a hospitality business</div>
+        <div class="project-tagline">Wellness / Retreats</div>
 
         <div class="mockup">
           <div class="mockup-bar">
@@ -452,38 +417,14 @@
             <span class="mockup-dot" style="background:#28c840"></span>
             <span class="mockup-url">saltyskins.app/dashboard</span>
           </div>
-          <div class="mockup-body">
-            <div class="mockup-inner">
-              <div class="m-stats">
-                <div class="m-stat"><div class="m-stat-label">Active Guests</div><div class="m-stat-value">12</div></div>
-                <div class="m-stat"><div class="m-stat-label">Arrivals This Week</div><div class="m-stat-value g">4</div></div>
-                <div class="m-stat"><div class="m-stat-label">Balance Due</div><div class="m-stat-value b">$1,340</div></div>
-                <div class="m-stat"><div class="m-stat-label">Open To-Dos</div><div class="m-stat-value">9</div></div>
-              </div>
-              <div class="m-table">
-                <div class="m-row stay head"><div>Guest</div><div>Stay Dates</div><div>Flight</div><div>Payment</div></div>
-                <div class="m-row stay"><div class="m-name">C. Rivera</div><div>Aug 12–19</div><div>AA 1442</div><div><span class="m-pill active">Paid</span></div></div>
-                <div class="m-row stay"><div class="m-name">J. Whitfield</div><div>Aug 14–21</div><div>DL 887</div><div><span class="m-pill tv">Pending</span></div></div>
-                <div class="m-row stay"><div class="m-name">S. Okafor</div><div>Aug 15–18</div><div>—</div><div><span class="m-pill active">Paid</span></div></div>
-                <div class="m-row stay"><div class="m-name">M. Lindqvist</div><div>Aug 20–27</div><div>UA 205</div><div><span class="m-pill disc">—</span></div></div>
-              </div>
-            </div>
-          </div>
+          <img class="mockup-img" src="https://www.carrufo.xyz/portfolio-images/saltyskins-overview.png" alt="Salty Skins retreat operations dashboard showing arrivals, collected revenue, and tasks" loading="lazy" />
         </div>
 
-        <p class="project-desc">A day-to-day operations hub for a hospitality business — guest stays, payments and finances, shared to-dos and notes for staff, and flight details for arrival coordination, replacing scattered spreadsheets and group texts.</p>
-        <div class="feature-grid">
-          <div class="feature-item">Guest profiles &amp; stay tracking</div>
-          <div class="feature-item">Payment &amp; finance tracking</div>
-          <div class="feature-item">Shared to-dos &amp; staff notes</div>
-          <div class="feature-item">Flight &amp; travel coordination for arrivals</div>
-          <div class="feature-item">Real-time sync across staff devices</div>
-          <div class="feature-item">Secure login &amp; cloud-hosted data</div>
-        </div>
+        <p class="project-desc">Built for a yoga retreat business that needed one place to track guests across retreats. Bookkeeping and finances live in the same dashboard as bookings and arrivals, so nothing gets tracked twice.</p>
         <div class="tag-row">
-          <span class="tag stay">React</span>
-          <span class="tag stay">Supabase (Postgres + Auth)</span>
-          <span class="tag stay">Vercel</span>
+          <span class="tag stay">CRM</span>
+          <span class="tag stay">Bookkeeping</span>
+          <span class="tag stay">Retreat Ops</span>
         </div>
       </div>
     </div>
@@ -505,6 +446,19 @@
 <footer>
   © 2026 Daniel Colantonio — Business &amp; Technology Consulting.
 </footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach((el) => io.observe(el));
+</script>
 
 </body>
 </html>
